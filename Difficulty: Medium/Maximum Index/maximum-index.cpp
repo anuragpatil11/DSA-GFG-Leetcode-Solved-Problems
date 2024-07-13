@@ -1,79 +1,63 @@
 //{ Driver Code Starts
-#include<bits/stdc++.h>
-using namespace std;
+#include <bits/stdc++.h>
 
+using namespace std;
 
 // } Driver Code Ends
 class Solution{
-    public:
+public:
+    int maxIndexDiff(int arr[], int n) {
+        // code here
+          int pre[n];
+        int post[n];
         
-    // A[]: input array
-    // N: size of array
-    // Function to find the maximum index difference.
-    int maxIndexDiff(int a[], int n) 
-    { 
-        // Your code here
-          
-        int leftMin[n];
-        int rightMax[n];
+        pre[0]=arr[0];
+        post[n-1]=arr[n-1];
         
-        leftMin[0] = a[0];
-        for(int i =1; i<n; i++)
+        for(int i=1;i<n;i++)
         {
-            leftMin[i] = min(a[i], leftMin[i-1]);
+            pre[i]=min(pre[i-1],arr[i]);
         }
         
-        rightMax[n-1] = a[n-1];
-        for(int j = n-2; j>=0; j--)
+        for(int i=n-2;i>=0;i--)
         {
-            rightMax[j] = max(a[j], rightMax[j+1]);
+            post[i]=max(post[i+1],arr[i]);
         }
         
-        int i =0; 
-        int j=0;
-        int maxDiff  = -1;
+        int ans=0,i=0,j=0;
         
         while(i<n && j<n)
         {
-            if(leftMin[i] <= rightMax[j])
+            if(pre[i]<=post[j])
             {
-                maxDiff = max(maxDiff, j-i);
-                j = j+1;
+                ans=max(ans,j-i);
+                j++;
             }
-            
-            else 
-            {
-                i = i +1;
-            }
+            else
+                i++;
         }
-        
-        return maxDiff;
+        return ans;
     }
+
 };
 
+
 //{ Driver Code Starts.
-  
-/* Driver program to test above functions */
-int main() 
-{
-    int T;
-    //testcases
-    cin>>T;
-    while(T--){
-        int num;
-        //size of array
-        cin>>num;
-        int arr[num];
-        
-        //inserting elements
-        for (int i = 0; i<num; i++)
-            cin>>arr[i];
+
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int n, i;
+        cin >> n;
+        int a[n];
+        for (i = 0; i < n; i++) {
+            cin >> a[i];
+        }
         Solution ob;
-        
-        //calling maxIndexDiff() function
-        cout<<ob.maxIndexDiff(arr, num)<<endl;    
-        
+        auto ans = ob.maxIndexDiff(a, n);
+        cout << ans << "\n";
     }
     return 0;
-} 
+}
 // } Driver Code Ends
