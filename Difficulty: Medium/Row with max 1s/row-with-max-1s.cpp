@@ -2,27 +2,32 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// } Driver Code Ends
-//User function template for C++
-class Solution{
-public:
-	int rowWithMax1s(vector<vector<int> > arr, int n, int m) {
-	    // code here
-	     int row = 0;
-	    int col = m-1;
-	    int majorInd =-1;
-	    
-	    while(row<n && col>=0) {
-	        while(col>=0 && arr[row][col]==1) {
-	            col--;
-	            majorInd = row;
-	        }
-	        if(col<0) return majorInd;
-	        row++;
-	    }
-	    return majorInd == -1 ? -1 : majorInd;
-	}
 
+// } Driver Code Ends
+// User function template for C++
+class Solution {
+  public:
+    int rowWithMax1s(vector<vector<int> > &arr) {
+        
+        int row = arr.size();
+        int col = arr[0].size();
+        int maxi = INT_MIN;
+        int idx = -1;
+    
+        for(int i = 0;i<row;i++){
+            int ones = 0;
+            for(int j = 0;j<col;j++){
+                if(arr[i][j] == 1){
+                    ones++;
+                }
+            }
+            if(ones > maxi && ones != 0){
+                maxi = ones;
+                idx = i;
+            }
+        }
+        return idx;
+    }
 };
 
 //{ Driver Code Starts.
@@ -32,14 +37,14 @@ int main() {
     while (t--) {
         int n, m;
         cin >> n >> m;
-        vector< vector<int> > arr(n,vector<int>(m));
+        vector<vector<int> > arr(n, vector<int>(m));
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
-                cin>>arr[i][j];
+                cin >> arr[i][j];
             }
         }
         Solution ob;
-        auto ans = ob.rowWithMax1s(arr, n, m);
+        auto ans = ob.rowWithMax1s(arr);
         cout << ans << "\n";
     }
     return 0;
