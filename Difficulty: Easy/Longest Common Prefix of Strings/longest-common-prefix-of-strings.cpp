@@ -11,25 +11,29 @@ using namespace std;
 class Solution {
   public:
 
-    string longestCommonPrefix(int N, string arr[]) {
+    string longestCommonPrefix(vector<string> arr) {
         // your code here
-          
-        sort(arr, arr+N);
+        sort(arr.begin(),arr.end());
         string ans = "";
-        string first = arr[0];
-        string last = arr[N-1];
         
-        int n = min(first.length(), last.length());
-        for(int i = 0 ; i<n; i++){
-            if(first[i] == last[i]){
-                ans += first[i];
-            }
-            else{
+        int i = 0;
+        int n = arr[0].length();
+        int m = arr[arr.size()-1].length();
+        string first = arr[0];
+        string last = arr[arr.size()-1];
+        
+        while(i<n && i<m){
+            if(first[i]!=last[i]){
                 break;
             }
+            ans += first[i];
+            i++;
         }
-        if(ans.empty()) return "-1";
-        else return ans;
+        
+        if(ans.length()==0){
+            return "-1";
+        }
+        return ans;
     }
 };
 
@@ -37,15 +41,19 @@ class Solution {
 int main() {
     int t;
     cin >> t;
+    cin.ignore();
     while (t--) {
-        int n;
-        cin >> n;
-        string arr[n];
-        for (int i = 0; i < n; ++i)
-            cin >> arr[i];
+        vector<string> arr;
+        string input;
+        getline(cin, input);
+        stringstream ss(input);
+        string number;
+        while (ss >> number) {
+            arr.push_back(number);
+        }
 
         Solution ob;
-        cout << ob.longestCommonPrefix(n, arr) << endl;
+        cout << ob.longestCommonPrefix(arr) << endl;
     }
 }
 
