@@ -1,5 +1,5 @@
 //{ Driver Code Starts
-//Initial Template for C++
+// Initial Template for C++
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -8,54 +8,42 @@ using namespace std;
 // } Driver Code Ends
 /*You are required to complete this function*/
 
-class Solution{
-    public:
-    int maxLen(vector<int>&A, int n)
-    {   
+class Solution {
+  public:
+    int maxLen(vector<int>& A, int n) {
         // Your code here
-        unordered_map<int, int> sumIndex;
-        int maxLength = 0;
-        int currentSum = 0;
-
-        for (int i = 0; i < n; i++) {
-            currentSum += A[i];
-
-            if (currentSum == 0) {
-                maxLength = max(maxLength, i + 1);
-            } else {
-                if (sumIndex.find(currentSum) != sumIndex.end()) {
-                    maxLength = max(maxLength, i - sumIndex[currentSum]);
-                } else {
-                    sumIndex[currentSum] = i;
-                }
+            unordered_map<int,int>mp;
+        int sum=0,ans=0;
+        mp[0]=-1;
+        for(int i=0;i<n;i++){
+            sum+=A[i];
+            if(mp.find(sum)!=mp.end()){
+                ans=max(ans,i-mp[sum]);
             }
+            else
+            mp[sum]=i;
         }
-
-        return maxLength;
+        return ans;
     }
 };
 
 
 //{ Driver Code Starts.
 
-int main()
-{
+int main() {
     int t;
-    cin>>t;
-    while(t--)
-    {
+    cin >> t;
+    while (t--) {
         int m;
-        cin>>m;
+        cin >> m;
         vector<int> array1(m);
-        for (int i = 0; i < m; ++i){
-            cin>>array1[i];
+        for (int i = 0; i < m; ++i) {
+            cin >> array1[i];
         }
         Solution ob;
-        cout<<ob.maxLen(array1,m)<<endl;
+        cout << ob.maxLen(array1, m) << endl;
     }
-    return 0; 
+    return 0;
 }
-
-
 
 // } Driver Code Ends
