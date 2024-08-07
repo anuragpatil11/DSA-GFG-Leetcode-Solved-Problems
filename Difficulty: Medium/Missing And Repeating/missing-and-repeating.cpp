@@ -9,22 +9,24 @@ public:
     vector<int> findTwoElement(vector<int> arr, int n) {
         // code here
         unordered_map<int,int> mp;
-        vector<int> vc;
         for(int i=0;i<n;i++){
             mp[arr[i]]++;
-            if(mp[arr[i]]==2){
-                vc.push_back(arr[i]);
+            
+        }
+        int a,b;
+        for(auto i:mp){
+            if(i.second>1){
+                a=i.first;
+                break;
             }
         }
-        
-         for(int i=1;i<=n;i++)
-        {
-            if(mp.find(i)==mp.end())
-            {
-                vc.push_back(i);
+        for(int i=1;i<=n;i++){
+            if(mp[i]==0){
+                b=i;
+                break;
             }
         }
-        return vc;
+        return {a,b};
     }
 };
 
