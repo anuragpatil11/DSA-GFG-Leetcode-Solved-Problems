@@ -1,28 +1,27 @@
 class Solution {
 public:
-    int subarraySum(vector<int>& nums, int k) {
-        int cnt=0;
-        int sum=0;
-        for(int i=0;i<nums.size();i++){
-            int sum=0;
-            for(int j=i;j<nums.size();j++){
-                sum+=nums[j];
-                if(sum==k){
-                    cnt++;
-                }
+    int subarraySum(vector<int>& arr, int k) {
+         int n = arr.size(); // taking the size of the array
+        
+        int ans = 0; // ans variable to store our count
+        
+        for(int i = 0; i < n; i++) // traverse from the array
+        {
+            int sum = arr[i]; // provide sum with arr[i]
+            
+            if(sum == k) // if element itself equal to k, then also increment count
+                ans++;
+            
+            for(int j = i + 1; j < n; j++) // now moving forward,
+            {
+                sum += arr[j]; // add elements with sum
+                
+                if(sum == k) // if at any point they become equal to k
+                    ans++; // increment answer
             }
+            
         }
-        // int maxi=nums[0];
-        // for(int i=0;i<nums.size();i++){
-        //     sum+=nums[i];
-        //     maxi=max(maxi,sum);
-        //     if(maxi==k){
-        //         cnt++;
-        //     }
-        //     if(sum<0){
-        //         sum=0;
-        //     }
-    // }
-        return cnt;
+        
+        return ans; // and at last, return answer
     }
 };
