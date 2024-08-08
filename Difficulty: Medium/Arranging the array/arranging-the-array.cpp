@@ -12,10 +12,17 @@ class Solution
             // Your code goes here
             int ar[n];int c=0;
             for(int i=0;i<n;i++){
-                if(arr[i]<0){ar[c]=arr[i];c++;}
+                if(arr[i]<0){
+                    ar[c]=arr[i];
+                    c++;
+                }
             }
             for(int i=0;i<n;i++){
-                if(arr[i]>=0){ar[c]=arr[i];c++;}
+                if(arr[i]>=0){
+                    ar[c]=arr[i];
+                    c++;
+                    
+                }
             }
              for(int i=0;i<n;i++){
                 arr[i]=ar[i];
