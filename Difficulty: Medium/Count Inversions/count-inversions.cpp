@@ -5,55 +5,68 @@ using namespace std;
 
 // } Driver Code Ends
 class Solution {
-  public:
+  private:
     // arr[]: Input Array
     // N : Size of the Array arr[]
     // Function to count inversions in the array.
-    void merge(long long arr[],long long s,long long m,long long e,long long &cnt)
-    {
-        long long *temp = new long long[e-s+1];
-        long long i=s; // first part
-        long long j=m+1; //second part
-        long long k=0; //for temp indexing
+      long long merge(long long arr[], long long s, long long mid, long long e){
         
-        while(i<=m && j<=e)
-        {
-            if(arr[i] > arr[j])
-            {
-                cnt+=m-i+1;
-                temp[k++]=arr[j++];
+        long long i = s;
+        long long j = mid+1;
+        long long k = 0;
+        long long aux[e - s + 1];
+        long long cnt = 0;
+        
+        while(i <= mid && j <= e){
+            
+            if(arr[i] <= arr[j]){
+                
+                aux[k++] = arr[i++];
+                
+            }else{
+                aux[k++] = arr[j++];
+                cnt += (mid - i + 1);
+                
             }
-            else
-                temp[k++]=arr[i++];
+            
         }
-        while(i<=m)
-            temp[k++]=arr[i++];
-        while(j<=e)
-            temp[k++]=arr[j++];    
         
-        k=0;
-        for(int i=s;i<=e;)
-        {
-            arr[i++]=temp[k++];
+        while(i <= mid) aux[k++] = arr[i++];
+        while(j <= e) aux[k++] = arr[j++];
+        
+        for(int i=s; i<=e; i++){
+            arr[i] = aux[i - s];
         }
-        delete [] temp;
-    }
-    void mergesort(long long arr[],long long s,long long e,long long &cnt)
-    {
-        if(s>=e)    return ;
-        long long m= s+(e-s)/2;
-        mergesort(arr,s,m,cnt);
-        mergesort(arr,m+1,e,cnt);
-        merge(arr,s,m,e,cnt);
-    }
-    
-    
-    long long int inversionCount(long long arr[], long long n)
-    {
-        // Your Code Here
-        long long cnt=0;
-        mergesort(arr,0,n-1,cnt);
+        
         return cnt;
+        
+    }
+    
+    long long mergeSort(long long arr[], long long s, long long e){
+        
+        long long int cnt = 0;
+        
+        if(s < e){
+            
+            long long mid = s + (e - s) / 2;
+            cnt += mergeSort(arr, s, mid);
+            cnt += mergeSort(arr, mid + 1, e);
+            cnt += merge(arr, s, mid, e);
+            
+        }
+        
+        return cnt;
+        
+    }
+    
+    public:
+    
+    long long int inversionCount(long long arr[], int n) {
+        
+        long long s = 0;
+        long long e = n - 1;
+        return mergeSort(arr, s, e);
+        
     }
 };
 
