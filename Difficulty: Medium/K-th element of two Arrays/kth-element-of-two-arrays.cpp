@@ -4,46 +4,73 @@ using namespace std;
 
 
 // } Driver Code Ends
-class Solution{
-    public:
-    int kthElement(int arr1[], int arr2[], int n, int m, int k)
-    {
-        vector<int> vc;
-        for(int i=0;i<n;i++){
-            vc.push_back(arr1[i]);
-        }
-        for(int i=0;i<m;i++){
-            vc.push_back(arr2[i]);
-        }
-        sort(vc.begin(),vc.end());
+class Solution {
+  public:
+    int kthElement(int k, vector<int>& arr1, vector<int>& arr2) {
+        // code here
+           int i=0,j=0;
+        int mn = INT_MAX;
+        if(k==1)return min(arr1[0],arr2[0]);
+        int n=arr1.size(),m=arr2.size();
         
-        
-        for(int i=0;i<vc.size();i++){
-            return vc[k-1];
+        while(i<n && j<m){
+            int e1 = arr1[i];
+            int e2 = arr2[j];
+            k--;
+            if(e1>e2){
+                if(k==0)return arr2[j];
+                j++;
+            }
+            else{
+                if(k==0)return arr1[i];
+                i++;
+            }
         }
         
+        while(i<n){
+            k--;
+            if(k==0)return arr1[i];
+            i++;
+        }
+        
+        while(j<m){
+            k--;
+            if(k==0)return arr2[j];
+            j++;
+        }
     }
 };
 
 //{ Driver Code Starts.
- 
+
 // Driver code
-int main()
-{
-	int t;
-	cin>>t;
-	while(t--){
-		int n,m,k;
-		cin>>n>>m>>k;
-		int arr1[n],arr2[m];
-		for(int i=0;i<n;i++)
-			cin>>arr1[i];
-		for(int i=0;i<m;i++)
-			cin>>arr2[i];
-		
-		Solution ob;
-        cout << ob.kthElement(arr1, arr2, n, m, k)<<endl;
-	}
+int main() {
+    int t;
+    cin >> t;
+    cin.ignore();
+    while (t--) {
+        int n, m, k;
+        cin >> k;
+        cin.ignore();
+        string input;
+        int num;
+        vector<int> arr1, arr2;
+
+        getline(cin, input);
+        stringstream s2(input);
+        while (s2 >> num) {
+            arr1.push_back(num);
+        }
+
+        getline(cin, input);
+        stringstream s3(input);
+        while (s3 >> num) {
+            arr2.push_back(num);
+        }
+
+        Solution ob;
+        cout << ob.kthElement(k, arr1, arr2) << endl;
+    }
     return 0;
 }
 // } Driver Code Ends
