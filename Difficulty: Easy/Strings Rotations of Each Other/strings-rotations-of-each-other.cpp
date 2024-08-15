@@ -12,8 +12,16 @@ class Solution
     bool areRotations(string s1,string s2)
     {
         // Your code here
-            s1=s1+s1;
-            return (s1.find(s2) != string::npos);
+        if(s1.size()!=s2.size())
+        return true;
+        else
+        {
+          string temp=s1+s1;
+          if(temp.find(s2)!=string::npos)
+          return true;
+          else
+          return false;
+        }  
     }
 };
 
