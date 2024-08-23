@@ -20,6 +20,7 @@ int main()
 
 bool valid(string s)
 {
+    // code here
      stack<char> st;
         for(int i=0;i<s.length();i++){
             if(s[i]=='(' || s[i]=='{' || s[i]=='[')
