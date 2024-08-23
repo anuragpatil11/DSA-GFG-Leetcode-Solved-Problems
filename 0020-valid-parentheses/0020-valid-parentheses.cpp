@@ -1,27 +1,40 @@
 class Solution {
 public:
     bool isValid(string s) {
-        stack<char>st;
+//         stack<char>st;
         
-        for(int i=0;i<s.size();i++){
-            if(s[i]=='(' || s[i]=='{' || s[i]=='[' ){
+//         for(int i=0;i<s.size();i++){
+//             if(s[i]=='(' || s[i]=='{' || s[i]=='[' ){
+//                 st.push(s[i]);
+//             }
+//             else{
+//                 if(st.empty()){
+//                     return false;
+//                 }
+//                 else{
+//                     if(st.top()=='(' && s[i]==')' || st.top()=='{' && s[i]=='}' ||st.top()=='[' && s[i]==']'){
+//                         st.pop();
+//                     }
+//                     else{
+//                         return false;
+//                     }
+//                 }
+//             }
+//         }
+//         return st.empty();
+        
+         stack<char> st;
+        for(int i=0;i<s.length();i++){
+            if(s[i]=='(' || s[i]=='{' || s[i]=='[')
                 st.push(s[i]);
-            }
             else{
-                if(st.empty()){
-                    return false;
-                }
-                else{
-                    if(st.top()=='(' && s[i]==')' || st.top()=='{' && s[i]=='}' ||st.top()=='[' && s[i]==']'){
-                        st.pop();
-                    // return true;
-                    }
-                    else{
-                        return false;
-                    }
-                }
+                if(st.empty()) return false;
+                if((s[i]==')' && st.top()=='(') || (s[i]==']' && st.top()=='[') || (s[i]=='}' && st.top()=='{'))
+                st.pop();
+                else return false;
             }
         }
-        return st.empty();
+        if(st.empty()) return true;
+        return false;
     }
 };
