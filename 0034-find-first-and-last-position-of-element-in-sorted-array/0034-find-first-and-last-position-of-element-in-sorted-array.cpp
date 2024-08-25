@@ -1,7 +1,7 @@
 class Solution {
 public:
     vector<int> searchRange(vector<int>& nums, int target) {
-        int i = 0;
+    int i = 0;
     int j = nums.size() - 1;
     int a = -1, b = -1;
 
